@@ -1,0 +1,52 @@
+% Author name: Robert Keen
+% Email: keenro19@students.rowan.edu
+% Course: MATLAB programming fall 2024 
+% Assignment: Homework 2 
+% Stock data
+% Date: 10/09/2024
+
+% Generate random stock prices
+prices = round(rand(30, 1) * 100 + 50, 2); % Prices between 50 and 150
+writematrix('stock_data.txt', prices);
+% Read stock data from file
+stockPrices = load('stock_data.txt');
+
+% Calculate metrics
+averagePrice = mean(stockPrices);
+highestPrice = max(stockPrices);
+lowestPrice = min(stockPrices);
+priceIncreases = sum(diff(stockPrices) > 0);
+
+% Print metrics to console
+fprintf('Average Closing Price: %.2f\n', averagePrice);
+fprintf('Highest Closing Price: %.2f\n', highestPrice);
+fprintf('Lowest Closing Price: %.2f\n', lowestPrice);
+fprintf('Number of Days with Price Increase: %d\n', priceIncreases);
+
+% Create a line plot
+figure;
+plot(stockPrices, '-o', 'DisplayName', 'Daily Closing Prices', 'LineWidth', 1.5);
+hold on;
+yline(averagePrice, 'r--', 'Average Price', 'DisplayName', 'Average Price');
+yline(highestPrice, 'g--', 'Highest Price', 'DisplayName', 'Highest Price');
+yline(lowestPrice, 'b--', 'Lowest Price', 'DisplayName', 'Lowest Price');
+
+% Add labels and title
+xlabel('Day');
+ylabel('Closing Price');
+title('Stock Market Analysis');
+legend('Location', 'best');
+grid on;
+
+% Save the plot as an image file
+saveas(gcf, 'stock_analysis.png');
+
+% Write summary to file
+fileID = fopen('stock_summary.txt', 'w');
+fprintf(fileID, 'Stock Market Analysis Summary\n');
+fprintf(fileID, '-------------------------------\n');
+fprintf(fileID, 'Average Closing Price: %.2f\n', averagePrice);
+fprintf(fileID, 'Highest Closing Price: %.2f\n', highestPrice);
+fprintf(fileID, 'Lowest Closing Price: %.2f\n', lowestPrice);
+fprintf(fileID, 'Number of Days with Price Increase: %d\n', priceIncreases);
+fclose(fileID);
