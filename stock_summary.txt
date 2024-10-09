@@ -1,0 +1,6 @@
+Stock Analysis Summary:
+-----------------------
+Average Closing Price: 113.02
+Highest Closing Price: 124.00
+Lowest Closing Price: 100.50
+Number of Days with Price Increase: 20
